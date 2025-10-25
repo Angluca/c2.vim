@@ -21,6 +21,7 @@ syn match Constant       '[{}\[\]()]'
 syn match Repeat      "\([^\.]\.\)\@<=\w\w*\(\(\[.*\]\)*\_s*(\)\@!"
 syn match Function    "[0-9a-zA-Z_@]*\w\w*\(\(\[.*\]\)*\_s*(\)\@="
 syn match Exception   "^\w\+\s*\(:$\)\@="
+syn match MoreMsg     "\v\w+\ze\<.*\>" "foo<T>();
 
 " Modules
 syn keyword     c2Directive         module import public
