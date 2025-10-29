@@ -12,16 +12,22 @@ let b:current_syntax = "c2"
 syn case match
 
 syn match PreProc        '[@]'
-syn match ocenSymbol     '[,;]'
+syn match cSymbol        '[,;:\.]'
 syn match Operator       '[\+\-\%=\/\^\&\*!?><\$|]'
-syn match SpecialComment '[`:\.]'
+syn match SpecialComment '[`]'
 syn match Constant       '[{}\[\]()]'
+hi def cSymbol ctermfg=DarkGray guifg=DarkGray
 
-"syn match Operator    '[\+\-\%=\^\&\*!?><\$|:/]'
-syn match Repeat      "\([^\.]\.\)\@<=\w\w*\(\(\[.*\]\)*\_s*(\)\@!"
-syn match Function    "[0-9a-zA-Z_@]*\w\w*\(\(\[.*\]\)*\_s*(\)\@="
-syn match Exception   "^\w\+\s*\(:$\)\@="
-syn match MoreMsg     "\v\w+\ze\<.*\>" "foo<T>();
+"syn match Operator       '[\+\-\%=\^\&\*!?><\$|:/]'
+syn match Repeat         '\([^\.]\.\)\@<=\w\w*\(\(\[.*\]\)*\_s*(\)\@!'
+syn match Exception      '^\w\+\s*\(:$\)\@='
+syn match MoreMsg        '\v\w+\ze\<.*\>' "foo<T>();
+syn match Function       '\v\w+\ze((\[.*\])|(\<.*\>))*\s*\('
+syn match cType          '\v(\.@1<!|\.\.)\zs<([iu][0-9]{1,3})?>'
+syn match cType          '\<\w\+_\l\>'
+syn match cType          '\<[_]*\u[A-Z_]*[a-z_]\+\w*\>'
+syn match Macro          '\<[_]*\u[A-Z_]*\>'
+syn match Exception      '\(\W\@<=[&*]\+\ze\w\)\|\(\w\@<=[*]\+\ze\W\)'
 
 " Modules
 syn keyword     c2Directive         module import public
