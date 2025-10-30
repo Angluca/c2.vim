@@ -18,16 +18,30 @@ syn match SpecialComment '[`]'
 syn match Constant       '[{}\[\]()]'
 hi def cSymbol ctermfg=DarkGray guifg=DarkGray
 
-"syn match Operator       '[\+\-\%=\^\&\*!?><\$|:/]'
-syn match Repeat         '\([^\.]\.\)\@<=\w\w*\(\(\[.*\]\)*\_s*(\)\@!'
-syn match Exception      '^\w\+\s*\(:$\)\@='
-syn match MoreMsg        '\v\w+\ze\<.*\>' "foo<T>();
-syn match Function       '\v\w+\ze((\[.*\])|(\<.*\>))*\s*\('
-syn match cType          '\v(\.@1<!|\.\.)\zs<([iu][0-9]{1,3})?>'
-syn match cType          '\<\w\+_\l\>'
-syn match cType          '\<[_]*\u[A-Z_]*[a-z_]\+\w*\>'
-syn match Macro          '\<[_]*\u[A-Z_]*\>'
-syn match Exception      '\(\W\@<=[&*]\+\ze\w\)\|\(\w\@<=[*]\+\ze\W\)'
+syn match Exception     '^\w\+\s*\(:$\)\@='
+syn match Label         '$\@<=\w\+'
+syn match Operator      '[\+\-\%=\^\&\*!?><\$|/~]'
+syn match cType         '\v\.?\zs<([iu][0-9]{1,3})?>'
+syn match Repeat        '\v([^\.](\.|::))@<=\w\w*'
+syn match Repeat        '\v([^\>]-\>)@<=\w\w*'
+syn match cType         '\<\w\+_[tscefmui]\>'
+syn match cType         '\<[_]*\u[A-Z0-9_]*[a-z0-9_]\+\w*\>'
+syn match Macro         '\<[_]*\u[A-Z0-9_]*\>'
+syn match cTypedef      '\v\w+\ze\$'
+syn match cMacro        '\v(::\s*)@<=\u\w*'
+syn match cMacro        '\v\u\w*\ze\s*(\(|\{)'
+syn match cType         '\v\w+\ze(::|\<.*\>)' "foo<T>()
+syn match Function      '\v\l\w*\ze((\[.*\])|((::)?\<.*\>))*\s*\('
+syn match Exception     '\v(\W@<=[&*]+\ze\'?\w)|(\w@<=[*]+\ze\W)'
+syn match cType         '\v<(str|sbuf|io|os|argparse|cexy|fuzz)>\ze\.'
+
+hi def link c2Type MoreMsg
+hi def link cInclude Include
+hi def link cFunc Function
+hi def link cTypedef Changed
+hi def link cType MoreMsg
+hi def link cThis Label
+hi def link cMacro SpecialComment
 
 " Modules
 syn keyword     c2Directive         module import public
@@ -54,8 +68,7 @@ syn keyword     c2Boolean           true false
 hi def link     c2DeclType          Keyword
 "hi def link     c2Type              Statement
 hi def link     c2Constant          Constant
-hi def link     c2Boolean           Statement
-hi def c2Type   ctermfg=DarkCyan guifg=DarkCyan
+hi def link     c2Boolean           Constant
 
 syn keyword     c2Storage           volatile
 syn keyword     c2Statement         break return continue asm goto fallthrough
